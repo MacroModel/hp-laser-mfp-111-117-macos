@@ -5,7 +5,7 @@ from tempfile import TemporaryDirectory, NamedTemporaryFile
 import fcntl, json, os, shutil, subprocess, sys, time
 import pymupdf as pdf
 from hp_profile import PAPERS
-from settings import SUPPORT, BUILD, SETS, DEFAULTS, YES, panel, read_json, save_json, validate
+from settings import APP_NAME, SUPPORT, BUILD, SETS, DEFAULTS, YES, panel, read_json, save_json, validate
 from pages import plan_job, id_page
 from printing import prefs_for_job, encode_job, dispatch, send_spl, status, counter, Cancelled
 from scan import Scanner, export_scans, copy_background
@@ -36,7 +36,7 @@ def preview(jobs,folder):
 def run_print(source,s,temp,save_only=False,device=None,title=None):
     while True:
         btns=['保存为默认','预设…','取消'] if save_only else ['打印','预览','保存配置','预设…','保存为覆盖图','取消']
-        act,updated=panel('HP 115nw 打印设置','Wi-Fi · SPL3     '+(title or (Path(source).name if source else '默认设置')),btns,SETS,s)
+        act,updated=panel(f'{APP_NAME} · 打印设置','Wi-Fi · SPL3     '+(title or (Path(source).name if source else '默认设置')),btns,SETS,s)
         s.update(updated)
         if act in ('取消','关闭'):raise Cancelled()
         try:
@@ -111,7 +111,7 @@ def scan_copy(mode,folder):
     caps=scanner.capabilities()
     groups=scan_settings(caps,mode);s=read_json(SUPPORT/('scan.json' if mode=='扫描' else 'copy.json'),{})
     while True:
-        act,vals=panel('HP 115nw · '+mode,'玻璃板原件正面朝下，靠扫描原点对齐。',['开始'+mode,'预扫描','保存配置','取消'],groups,s)
+        act,vals=panel(f'{APP_NAME} · {mode}','玻璃板原件正面朝下，靠扫描原点对齐。',['开始'+mode,'预扫描','保存配置','取消'],groups,s)
         s.update(vals)
         if act=='取消':return
         try:
@@ -153,7 +153,7 @@ def library_home():
     with TemporaryDirectory(prefix='hp115nw-') as d:
         folder=Path(d)
         while True:
-            mode,_=panel('HP 115nw 打印与扫描','Wi-Fi · 打印、扫描、复印和设备状态',['扫描','复印','打印设置','设备状态','关闭'])
+            mode,_=panel(APP_NAME,'Wi-Fi · 打印、扫描、复印和设备状态',['扫描','复印','打印设置','设备状态','关闭'])
             if mode=='关闭':return
             if mode in ('扫描','复印'):scan_copy(mode,folder)
             elif mode=='打印设置':
@@ -190,4 +190,4 @@ if __name__=='__main__':
     except Cancelled:sys.exit(2)
     except Exception as e:
         print(str(e),file=sys.stderr)
-        note('HP 115nw 未完成操作',str(e));sys.exit(1)
+        note(f'{APP_NAME} · 操作未完成',str(e));sys.exit(1)

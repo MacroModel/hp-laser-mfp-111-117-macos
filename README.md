@@ -1,6 +1,6 @@
-# HP Laser MFP 111-117 for macOS
+# HP Laser MFP 111-117 Studio
 
-社区开发的 Apple Silicon Mac 驱动，实测机型为 **HP Laser MFP 115nw**。从 WPS、预览等应用经 Wi-Fi 打印，可选 600 × 600 或 1200 × 1200 dpi。手动双面只需提交一次，第一趟结束后整叠放回纸盒，按机身键续印。配套的 HP 115nw Studio 提供扫描、复印和 OCR。
+社区开发的 Apple Silicon Mac 驱动，实测机型为 **HP Laser MFP 115nw**。从 WPS、预览等应用经 Wi-Fi 打印，可选 600 × 600 或 1200 × 1200 dpi。手动双面只需提交一次，第一趟结束后整叠放回纸盒，按机身键续印。Studio 应用提供扫描、复印和 OCR。
 
 [下载 Apple Silicon 安装包（GitHub Releases）](https://github.com/MacroModel/hp-laser-mfp-111-117-macos/releases/latest)
 
@@ -23,7 +23,7 @@
 
 - **原厂手动双面**。同一作业携带两趟数据。长边 4 页的内容依次为 4、2、1、3，前两页旋转 180°。短边 3 页的内容依次为空白、2、1、3，所有有字的页面正向。51 页时每趟 26 张。也可调整出纸面、放回面和进纸方向。
 - **打印设置**。纸张与纸材、份数与逐份、页码范围、页序、缩放、每面多页、小册子、海报、水印、PDF 信头、图像浓淡、省墨和边缘增强，可在打印设置中选择。
-- **扫描、复印和 OCR**。打开用户“应用程序”中的 **HP 115nw Studio**。使用 Wi-Fi 平板扫描，可选设备实际公布的 100、200、300 dpi。复印支持浓淡、缩放、多份和身份证正反面合印。可保存 PDF、JPEG、PNG、多页 TIFF 和经 OCR 识别的 PDF、文本或 EPUB。需要多页时，按提示逐张更换原件。
+- **扫描、复印和 OCR**。打开用户“应用程序”中的 **HP Laser MFP 111-117 Studio**。使用 Wi-Fi 平板扫描，可选设备实际公布的 100、200、300 dpi。复印支持浓淡、缩放、多份和身份证正反面合印。可保存 PDF、JPEG、PNG、多页 TIFF 和经 OCR 识别的 PDF、文本或 EPUB。需要多页时，按提示逐张更换原件。
 
 打印通过 Wi-Fi 发送到设备的 9100 端口。扫描使用 eSCL。Mac 端复印由扫描和打印组成。机身独立复印仍按 HP 面板原有方式操作。USB 打印、Windows 的 TWAIN/WIA 接口以及扫描键向电脑推送均未在本包验证。设备在 Wi-Fi 下只公布最高 300 dpi 的扫描请求档位。
 

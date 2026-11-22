@@ -3,6 +3,7 @@ from pathlib import Path
 import json, os, tempfile
 from subprocess import run
 
+APP_NAME = "HP Laser MFP 111-117 Studio"
 SUPPORT = Path.home() / "Library/Application Support/HP115nw Studio"
 BUILD = Path(__file__).resolve().parents[1] / "build"
 def choices(**values):

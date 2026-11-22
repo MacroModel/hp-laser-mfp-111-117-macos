@@ -46,7 +46,7 @@ struct Panel {
         let app = NSApplication.shared
         app.setActivationPolicy(.accessory)
         let alert = NSAlert()
-        alert.messageText = form["title"] as? String ?? "HP 115nw"
+        alert.messageText = form["title"] as? String ?? "HP Laser MFP 111-117 Studio"
         alert.informativeText = form["detail"] as? String ?? ""
         var captures: [String: () -> String] = [:]
         var pickers: [Picker] = []

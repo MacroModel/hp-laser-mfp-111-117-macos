@@ -5,7 +5,10 @@ from urllib.parse import unquote
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent
 BASE=Path.home()/'Library/Application Support/HP115nw Studio'
-APP=Path.home()/'Applications/HP 115nw Studio.app'
+APP_NAME = 'HP Laser MFP 111-117 Studio'
+APP_ID = 'com.macromodel.hp115nw.control'
+APP = Path.home() / 'Applications' / f'{APP_NAME}.app'
+LEGACY_APP = APP.with_name('HP 115nw Studio.app')
 LABEL='com.macromodel.hp115nw.studio'
 AGENT=Path.home()/'Library/LaunchAgents'/(LABEL+'.plist')
 PYTHON=Path('/opt/homebrew/bin/python3.13')
@@ -82,8 +85,49 @@ if [[ "$#" -ge 3 && -f "$3" && -x "$HOME/Library/Application Support/HP115nw Stu
 fi
 '''.replace('QUEUE',queue).replace('URI',URI)
     put(engine,lines[0]+snippet.encode()+b''.join(lines[1:]),0o755)
+
+def is_studio_app(path):
+    if path.is_symlink():
+        return False
+    try:
+        info = plistlib.loads((path / 'Contents/Info.plist').read_bytes())
+    except (OSError, ValueError):
+        return False
+    return isinstance(info, dict) and info.get('CFBundleIdentifier') == APP_ID
+
+def install_studio_app(launcher):
+    APP.parent.mkdir(parents=True, exist_ok=True)
+    info = dict(
+        CFBundleIdentifier=APP_ID,
+        CFBundleName=APP_NAME,
+        CFBundleDisplayName=APP_NAME,
+        CFBundleExecutable='HP115nw',
+        CFBundlePackageType='APPL',
+        CFBundleShortVersionString='1.1.1',
+        CFBundleVersion='3',
+        LSUIElement=True,
+    )
+    with tempfile.TemporaryDirectory(prefix='.hp-studio-', dir=APP.parent) as directory:
+        staged = Path(directory) / APP.name
+        put(staged / 'Contents/MacOS/HP115nw', launcher.read_bytes(), 0o755)
+        put(staged / 'Contents/Info.plist', plistlib.dumps(info), 0o644)
+        run('/usr/bin/codesign', '--force', '--sign', '-', staged)
+        run('/usr/bin/codesign', '--verify', '--strict', staged)
+
+        previous = Path(directory) / 'previous'
+        if APP.exists():
+            APP.rename(previous)
+        try:
+            staged.rename(APP)
+        except OSError:
+            if previous.exists():
+                previous.rename(APP)
+            raise
+
 def install(args):
     if not PYTHON.exists():raise ValueError('此 Apple Silicon 版本需要 Homebrew Python 3.13。')
+    if os.path.lexists(APP) and not is_studio_app(APP):
+        raise ValueError(f'应用程序目录已有名为 {APP.name} 的其他项目。')
     queue=args.queue
     if not re.fullmatch(r'[a-zA-Z0-9._-]+',queue) or not re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9.-]*',args.host):raise ValueError('队列名或主机名无效。')
     known=installed()
@@ -152,10 +196,7 @@ def install(args):
             except Exception:
                 if i==23:raise
                 time.sleep(.25)
-        mac=APP/'Contents/MacOS';mac.mkdir(parents=True,exist_ok=True)
-        put(mac/'HP115nw', (ver/'build/Launcher').read_bytes(),0o755)
-        put(APP/'Contents/Info.plist',plistlib.dumps(dict(CFBundleIdentifier='com.macromodel.hp115nw.control',CFBundleName='HP 115nw Studio',CFBundleDisplayName='HP 115nw 打印与扫描',CFBundleExecutable='HP115nw',CFBundlePackageType='APPL',CFBundleShortVersionString='1.1',CFBundleVersion='2',LSUIElement=True)),0o644)
-        run('/usr/bin/codesign','--force','--sign','-',APP)
+        install_studio_app(ver/'build/Launcher')
         if queue in installed():idle(queue)
         switch(queue,URI,ver/'build/queue.ppd','HP Laser MFP 111-117')
         options=run('/usr/bin/lpoptions','-p',queue,'-l')
@@ -182,6 +223,9 @@ def install(args):
         if installed().get(queue)==URI:restore_queue()
         if old:link.symlink_to(old);os.replace(link,prev)
         raise
+    if is_studio_app(LEGACY_APP):
+        archive = Path(tempfile.mkdtemp(prefix='legacy-studio-', dir=backup))
+        LEGACY_APP.rename(archive / 'launcher')
     print('已安装。',queue,URI,APP)
 
 def legacy_menu(retire):
