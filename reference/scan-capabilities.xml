@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ScannerCapabilities xmlns:ns0="http://schemas.hp.com/imaging/escl/2011/05/03" xmlns:ns1="http://www.pwg.org/schemas/2010/12/sm">
+<ns1:Version>2.63</ns1:Version>
+<ns1:MakeAndModel>HP Laser MFP 115nw</ns1:MakeAndModel>
+<ns1:Manufacturer>HP</ns1:Manufacturer>
+<ns1:SerialNumber>OFFLINE-FIXTURE</ns1:SerialNumber>
+<ns0:UUID>00000000-0000-4000-8000-000000000000</ns0:UUID>
+<ns0:Certifications>
+	<ns0:Certification>
+		<ns0:Name>mopria-certified-scan</ns0:Name>
+		<ns0:Version>1.5</ns0:Version>
+</ns0:Certification>
+</ns0:Certifications>
+<ns0:AdminURI>http://localhost/</ns0:AdminURI>
+<ns0:IconURI>http://localhost/icon.png</ns0:IconURI>
+<ns0:SettingProfiles>
+	<ns0:SettingProfile>
+		<ns0:ColorModes>
+			<ns0:ColorMode>BlackAndWhite1</ns0:ColorMode>
+			<ns0:ColorMode>Grayscale8</ns0:ColorMode>
+			<ns0:ColorMode>RGB24</ns0:ColorMode>
+</ns0:ColorModes>
+		<ns0:DocumentFormats>
+			<ns1:DocumentFormat>application/pdf</ns1:DocumentFormat>
+			<ns0:DocumentFormatExt>application/pdf</ns0:DocumentFormatExt>
+			<ns1:DocumentFormat>image/jpeg</ns1:DocumentFormat>
+			<ns0:DocumentFormatExt>image/jpeg</ns0:DocumentFormatExt>
+</ns0:DocumentFormats>
+		<ns0:SupportedResolutions>
+			<ns0:DiscreteResolutions>
+				<ns0:DiscreteResolution>
+					<ns0:XResolution>100</ns0:XResolution>
+					<ns0:YResolution>100</ns0:YResolution>
+</ns0:DiscreteResolution>
+				<ns0:DiscreteResolution>
+					<ns0:XResolution>200</ns0:XResolution>
+					<ns0:YResolution>200</ns0:YResolution>
+</ns0:DiscreteResolution>
+				<ns0:DiscreteResolution>
+					<ns0:XResolution>300</ns0:XResolution>
+					<ns0:YResolution>300</ns0:YResolution>
+</ns0:DiscreteResolution>
+</ns0:DiscreteResolutions>
+</ns0:SupportedResolutions>
+		<ns0:ColorSpaces>
+			<ns0:ColorSpace ns0:default="true">YCC</ns0:ColorSpace>
+</ns0:ColorSpaces>
+</ns0:SettingProfile>
+</ns0:SettingProfiles>
+<ns0:Platen>
+	<ns0:PlatenInputCaps>
+		<ns0:MinWidth>295</ns0:MinWidth>
+		<ns0:MinHeight>295</ns0:MinHeight>
+		<ns0:MaxWidth>2550</ns0:MaxWidth>
+		<ns0:MaxHeight>3507</ns0:MaxHeight>
+		<ns0:SettingProfiles>
+			<ns0:SettingProfile>
+				<ns0:ColorModes>
+					<ns0:ColorMode>BlackAndWhite1</ns0:ColorMode>
+					<ns0:ColorMode>Grayscale8</ns0:ColorMode>
+					<ns0:ColorMode>RGB24</ns0:ColorMode>
+</ns0:ColorModes>
+				<ns0:DocumentFormats>
+					<ns1:DocumentFormat>application/pdf</ns1:DocumentFormat>
+					<ns0:DocumentFormatExt>application/pdf</ns0:DocumentFormatExt>
+					<ns1:DocumentFormat>image/jpeg</ns1:DocumentFormat>
+					<ns0:DocumentFormatExt>image/jpeg</ns0:DocumentFormatExt>
+</ns0:DocumentFormats>
+				<ns0:SupportedResolutions>
+					<ns0:DiscreteResolutions>
+						<ns0:DiscreteResolution>
+							<ns0:XResolution>100</ns0:XResolution>
+							<ns0:YResolution>100</ns0:YResolution>
+</ns0:DiscreteResolution>
+						<ns0:DiscreteResolution>
+							<ns0:XResolution>200</ns0:XResolution>
+							<ns0:YResolution>200</ns0:YResolution>
+</ns0:DiscreteResolution>
+						<ns0:DiscreteResolution>
+							<ns0:XResolution>300</ns0:XResolution>
+							<ns0:YResolution>300</ns0:YResolution>
+</ns0:DiscreteResolution>
+</ns0:DiscreteResolutions>
+</ns0:SupportedResolutions>
+				<ns0:ColorSpaces>
+					<ns0:ColorSpace ns0:default="true">YCC</ns0:ColorSpace>
+</ns0:ColorSpaces>
+</ns0:SettingProfile>
+</ns0:SettingProfiles>
+		<ns0:SupportedIntents>
+			<ns0:Intent>Document</ns0:Intent>
+			<ns0:Intent>TextAndGraphic</ns0:Intent>
+			<ns0:Intent>Photo</ns0:Intent>
+			<ns0:Intent>Preview</ns0:Intent>
+</ns0:SupportedIntents>
+		<ns0:MaxOpticalXResolution>600</ns0:MaxOpticalXResolution>
+		<ns0:MaxOpticalYResolution>600</ns0:MaxOpticalYResolution>
+</ns0:PlatenInputCaps>
+</ns0:Platen>
+<ns0:BlankPageDetection>false</ns0:BlankPageDetection>
+<ns0:BlankPageDetectionAndRemoval>false</ns0:BlankPageDetectionAndRemoval>
+</ns0:ScannerCapabilities>

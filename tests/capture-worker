@@ -1,0 +1,14 @@
+#!/opt/homebrew/bin/python3.13
+from pathlib import Path
+import json, os, sys
+root=Path(__file__).resolve().parents[1]
+sys.path[:0]=[str(root/'src'),str(root/'build/lib')]
+from printing import prefs_for_job,encode_job
+from pages import plan_job
+from settings import DEFAULTS
+source=Path(sys.argv[2]);job=json.loads(Path(sys.argv[3]).read_text())
+# This independently configured lab processor only ever writes files.
+base=Path(os.environ['HP115NW_CAPTURE_DIR'])/str(job['ID']);base.mkdir()
+options=prefs_for_job(job['Options'],DEFAULTS)
+(base/'options.json').write_text(json.dumps(job,indent=2))
+encode_job(plan_job(source,options),options,base)
